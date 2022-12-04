@@ -28,7 +28,7 @@ const Todo = (props) => {
 
 // function to get the data from the database
   const fetching = async () => {
-    return await axios.get("http://localhost:4000/todo/getdata")
+    return await axios.get("https://todo-backend-h5sh.onrender.com/todo/getdata")
   }
 
 // first check if the input is empty, if not then send the updated data to the data base and fetch the updated data and set to tasks
@@ -38,7 +38,7 @@ const handleclick = (e) => {
     return alert("input empty")
   }else if(value !== ""){
     let obj = {id : id, to_do : input, description : descriptions}
-    axios.put("http://localhost:4000/todo/update",obj)
+    axios.put("https://todo-backend-h5sh.onrender.com/todo/update",obj)
     .then(() => {
       fetching()
       .then(res => settasks(res.data))
@@ -48,7 +48,7 @@ const handleclick = (e) => {
     props.emptyS()// this function goes to the reducer so that it will empty the values and display none the cancelEdit button
   }else{// if values is empty means nothing to edit so it will store the new data
     let obj = {to_do : input,description : descriptions}
-    axios.post("http://localhost:4000/todo/postdata",obj)
+    axios.post("https://todo-backend-h5sh.onrender.com/todo/postdata",obj)
     .then(data =>settasks(data.data))
     .catch(error => console.log(error))
     setInput("")

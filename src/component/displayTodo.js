@@ -28,7 +28,7 @@ export const Displaytodo = (props) => {
 // function to delete from the database by using the id
   const handleDelete = (id) => {
     let body = {task : parseInt(id)}
-    axios.delete("http://localhost:4000/todo/delete",{data : body})
+    axios.delete("https://todo-backend-h5sh.onrender.com/todo/delete",{data : body})
     .then(() => fetching().then(res => setto_do_data(res.data)))
     .catch(error =>console.log(error))
   }
@@ -56,7 +56,7 @@ const handleCheckList = () => {
   if(checkArray.length === 0){alert("no checked")}
   else{
     console.log(checkArray)
-    axios.delete("http://localhost:4000/todo/checked",{data : {checkedBoxList : checkArray}})
+    axios.delete("https://todo-backend-h5sh.onrender.com/todo/checked",{data : {checkedBoxList : checkArray}})
     .then(() => fetching().then(res => setto_do_data(res.data)))
     .catch(error =>console.log(error))
     setcheckArray([])
