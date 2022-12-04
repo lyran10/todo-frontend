@@ -1,0 +1,143 @@
+*{
+  color: aliceblue;
+}
+
+body{
+  background-color:black;
+}
+
+/* add and des inputs */
+.input{
+  padding: 5px;
+  width: 400px;
+}
+
+.button{
+  padding: 5px;
+  border-radius: 5px;
+  width: 70px;
+}
+
+/* display none class */
+.dNone{
+  display: none;
+}
+
+/* ul and li's */
+.ul{
+  padding-left: 0px;
+}
+
+.li{
+  background-color: #0000FF;
+  padding: 10px;
+  list-style: none;
+  border-bottom: 1px solid black;
+  border-radius: 5px;
+  width: 430px;
+  transition: 0.2s;
+}
+
+/* cursor pointer on the tasks */
+.task{
+  position: relative;
+  cursor: pointer;
+}
+
+/* description msg when clicked on the tasks */
+.description{
+  position: absolute;
+  right: 200px;
+  bottom: 30px;
+  background-color: white;
+  padding: 10px;
+  color: black;
+  border-radius: 5px;
+}
+
+/* close button inside the description msg */
+.desCloseButton{
+  cursor: pointer;
+  position: absolute;
+  left: 90%;
+  top: 5%;
+  background-color: black;
+}
+
+/* delete and edit icons styling */
+.fa{
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.fa:hover {
+ transform: scale(1.2);
+}
+
+/* media query */
+@media all and (min-width: 1024px) and (max-width: 1280px) { }
+ 
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .input{
+    width: 300px
+  }
+
+  .li{
+    width: 350px;
+  }
+
+  .description{
+    right: 100px;
+    bottom: 30px;
+  }
+ }
+ 
+@media all and (min-width: 480px) and (max-width: 768px) { 
+  .input{
+    width: 250px
+  }
+  .li{
+    width: 300px;
+  }
+
+  .description{
+    right: 60px;
+    bottom: 30px;
+  }
+}
+ 
+@media all and (max-width: 480px) {
+  h2{
+    font-size: 20px;
+  }
+  .input{
+    width: 200px
+  }
+
+  .li{
+    width: 250px;
+  }
+
+  .description{
+    right: 30px;
+    bottom: 30px;
+  }
+ }
+
+ @media all and (max-width: 300px) {
+  h2{
+    font-size: 15px;
+  }
+  .input{
+    width: 150px
+  }
+
+  .li{
+    width: 200px;
+  }
+
+  .description{
+    right: 20px;
+    bottom: 30px;
+  }
+ }
