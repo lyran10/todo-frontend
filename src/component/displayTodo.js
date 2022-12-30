@@ -3,6 +3,7 @@ import "./style.css"
 import axios from "axios"
 import { useEffect,useState } from "react"
 import List from "./list.js"
+import { Button } from "react-bootstrap"
 
 // this function is to display all the list
 export const Displaytodo = (props) => {
@@ -11,10 +12,12 @@ export const Displaytodo = (props) => {
   const [boolean,setBoolean] = useState(false)
   const [id,setid] = useState()
   const [checkArray,setcheckArray] = useState([])
+  const [isLoading,setLoading] = useState(false)
+  const [removeLoading,setRemoveLoading] = useState(false)
 
 // function to get the data from the database
   const fetching = async () => {
-    return await axios.get("http://localhost:4000/todo/getdata")
+    return await axios.get("https://to-do-backend-wj5i.onrender.com/todo/getdata")
   }
 
   // fetch the updated data and store in to_do_data so that it will render whenever updated
@@ -27,9 +30,14 @@ export const Displaytodo = (props) => {
   
 // function to delete from the database by using the id
   const handleDelete = (id) => {
+    setLoading(true)
     let body = {task : parseInt(id)}
-    axios.delete("https://todo-backend-h5sh.onrender.com/todo/delete",{data : body})
-    .then(() => fetching().then(res => setto_do_data(res.data)))
+    axios.delete("https://to-do-backend-wj5i.onrender.com/todo/delete",{data : body})
+    .then(() => fetching().then(res => {
+      setto_do_data(res.data)
+      setLoading(false)
+    }
+    ))
     .catch(error =>console.log(error))
   }
 
@@ -55,9 +63,12 @@ export const Displaytodo = (props) => {
 const handleCheckList = () => {
   if(checkArray.length === 0){alert("no checked")}
   else{
-    console.log(checkArray)
-    axios.delete("https://todo-backend-h5sh.onrender.com/todo/checked",{data : {checkedBoxList : checkArray}})
-    .then(() => fetching().then(res => setto_do_data(res.data)))
+    setRemoveLoading(true)
+    axios.delete(`https://to-do-backend-wj5i.onrender.com/todo/checked`,{data : {checkedBoxList : checkArray}})
+    .then(() => fetching().then(res => {
+      setto_do_data(res.data)
+      setRemoveLoading(false)
+    }))
     .catch(error =>console.log(error))
     setcheckArray([])
   }
@@ -67,12 +78,14 @@ const handleCheckList = () => {
     {to_do_data.length >= 1?<p className="text-center">Click on the task for Description</p>:null}
     <div className="d-flex justify-content-center gap-5 mt-5">
       <ul className="ul d-flex flex-column">
-        <List to_do_data = {to_do_data} handleDelete = {handleDelete} handleCheck={handleCheck} handleDes={handleDes} id={id} boolean={boolean} setBoolean = {setBoolean} checkArray={checkArray}/>
+        <List isLoading={isLoading} to_do_data = {to_do_data} handleDelete = {handleDelete} handleCheck={handleCheck} handleDes={handleDes} id={id} boolean={boolean} setBoolean = {setBoolean} checkArray={checkArray}/>
       </ul>
     </div>
     <div className="d-flex justify-content-center">
-    {checkArray.length >= 1?<button onClick={handleCheckList} className="text-dark">Remove Checked</button>:null}
+    {checkArray.length >= 1?<Button onClick={handleCheckList}>Remove Checked</Button>:null}
+    {!removeLoading ? null : "Removing..."}
     </div>
   </div>
   )
 }
+

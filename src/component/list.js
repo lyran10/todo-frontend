@@ -1,10 +1,11 @@
 import {FaTrashAlt,FaEdit,FaRegWindowClose} from "react-icons/fa"
 import {edit} from "./action.js"
 import {connect} from "react-redux"
+import { Spinner } from "react-bootstrap"
 
 // this is the list component where it will iterate in the array and display them in a list
 const List = (props) => {
-  const {to_do_data,handleCheck,handleDelete,handleDes,id,boolean,setBoolean,checkArray} = props// getting all the props from displayTodo component
+  const {to_do_data,handleCheck,handleDelete,handleDes,id,boolean,setBoolean,checkArray,isLoading} = props// getting all the props from displayTodo component
 
   return(
     <div>
@@ -23,7 +24,9 @@ const List = (props) => {
                 {/* //props.editing will send the data to the reducer and to edit and it will be used in the todo component then after clicking on the add button it will update in the data base. */}
                 <span className="fa" onClick={() => props.editing(ele.to_do,ele.id,ele.description)}> <FaEdit /></span>
                 {/* // to delete from the database */}
+                {!isLoading ? 
                 <span className="fa" onClick={() => handleDelete(ele.id)}><FaTrashAlt /></span>
+                : <Spinner animation="border" size="sm" className="mt-1" />}
                 {/* // used for the handleDes function */}
                 {boolean && index === parseInt(id)?to_do_data.map((ele,index) => {
                     if(parseInt(id) === parseInt(index)){
