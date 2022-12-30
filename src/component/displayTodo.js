@@ -17,7 +17,7 @@ export const Displaytodo = (props) => {
 
 // function to get the data from the database
   const fetching = async () => {
-    return await axios.get("https://to-do-backend-wj5i.onrender.com/todo/getdata")
+    return await axios.get(`${process.env.REACT_APP_URL}/todo/getdata`)
   }
 
   // fetch the updated data and store in to_do_data so that it will render whenever updated
@@ -32,7 +32,7 @@ export const Displaytodo = (props) => {
   const handleDelete = (id) => {
     setLoading(true)
     let body = {task : parseInt(id)}
-    axios.delete("https://to-do-backend-wj5i.onrender.com/todo/delete",{data : body})
+    axios.delete(`${process.env.REACT_APP_URL}/todo/delete`,{data : body})
     .then(() => fetching().then(res => {
       setto_do_data(res.data)
       setLoading(false)
@@ -64,7 +64,7 @@ const handleCheckList = () => {
   if(checkArray.length === 0){alert("no checked")}
   else{
     setRemoveLoading(true)
-    axios.delete(`https://to-do-backend-wj5i.onrender.com/todo/checked`,{data : {checkedBoxList : checkArray}})
+    axios.delete(`${process.env.REACT_APP_URL}/todo/checked`,{data : {checkedBoxList : checkArray}})
     .then(() => fetching().then(res => {
       setto_do_data(res.data)
       setRemoveLoading(false)
